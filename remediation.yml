@@ -2370,20 +2370,20 @@
       - restrict_strategy
 
 
-    - name: Ensure audit-audispd-plugins is installed
-      package:
-        name: audit-audispd-plugins
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - PCI-DSS-Req-10.5.3
-      - PCI-DSSv4-10.3.3
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_audit-audispd-plugins_installed
+    # - name: Ensure audit-audispd-plugins is installed
+    #   package:
+    #     name: audit-audispd-plugins
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - PCI-DSS-Req-10.5.3
+    #   - PCI-DSSv4-10.3.3
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_audit-audispd-plugins_installed
 
 
     - name: Ensure auditd is installed
