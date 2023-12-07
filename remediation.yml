@@ -788,18 +788,18 @@
       - sudo_require_reauthentication
 
 
-    - name: Ensure gnutls-utils is installed
-      package:
-        name: gnutls-utils
-        state: present
-        ignore_errors: true 
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_gnutls-utils_installed
+    # - name: Ensure gnutls-utils is installed
+    #   package:
+    #     name: gnutls-utils
+    #     state: present
+    #     ignore_errors: true 
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_gnutls-utils_installed
       
 
 
