@@ -123,203 +123,203 @@
       - package_prelink_removed
 
 
-    - name: Ensure aide is installed
-      package:
-        name: aide
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_aide_installed
+    # - name: Ensure aide is installed
+    #   package:
+    #     name: aide
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_aide_installed
 
 
-    - name: Build and Test AIDE Database - Ensure AIDE Is Installed
-      ansible.builtin.apt:
-        name: aide
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Ensure AIDE Is Installed
+    #   ansible.builtin.apt:
+    #     name: aide
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Check if DB Path in /etc/aide/aide.conf Is
-        Already Set
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        regexp: ^#?(\s*)(database=)(.*)$
-        state: absent
-      check_mode: true
-      changed_when: false
-      register: database_replace
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Check if DB Path in /etc/aide/aide.conf Is
+    #     Already Set
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     regexp: ^#?(\s*)(database=)(.*)$
+    #     state: absent
+    #   check_mode: true
+    #   changed_when: false
+    #   register: database_replace
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Check if DB Out Path in /etc/aide/aide.conf
-        Is Already Set
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        regexp: ^#?(\s*)(database_out=)(.*)$
-        state: absent
-      check_mode: true
-      changed_when: false
-      register: database_out_replace
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Check if DB Out Path in /etc/aide/aide.conf
+    #     Is Already Set
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     regexp: ^#?(\s*)(database_out=)(.*)$
+    #     state: absent
+    #   check_mode: true
+    #   changed_when: false
+    #   register: database_out_replace
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Fix DB Path in Config File if Necessary
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        regexp: ^#?(\s*)(database)(\s*)=(\s*)(.*)$
-        line: \2\3=\4file:/var/lib/aide/aide.db
-        backrefs: true
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - database_replace.found > 0
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Fix DB Path in Config File if Necessary
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     regexp: ^#?(\s*)(database)(\s*)=(\s*)(.*)$
+    #     line: \2\3=\4file:/var/lib/aide/aide.db
+    #     backrefs: true
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - database_replace.found > 0
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Fix DB Out Path in Config File if Necessary
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        regexp: ^#?(\s*)(database_out)(\s*)=(\s*)(.*)$
-        line: \2\3=\4file:/var/lib/aide/aide.db.new
-        backrefs: true
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - database_out_replace.found > 0
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Fix DB Out Path in Config File if Necessary
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     regexp: ^#?(\s*)(database_out)(\s*)=(\s*)(.*)$
+    #     line: \2\3=\4file:/var/lib/aide/aide.db.new
+    #     backrefs: true
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - database_out_replace.found > 0
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Ensure the Default DB Path is Added
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        line: database=file:/var/lib/aide/aide.db
-        create: true
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - database_replace.found == 0
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Ensure the Default DB Path is Added
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     line: database=file:/var/lib/aide/aide.db
+    #     create: true
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - database_replace.found == 0
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Ensure the Default Out Path is Added
-      ansible.builtin.lineinfile:
-        path: /etc/aide/aide.conf
-        line: database_out=file:/var/lib/aide/aide.db.new
-        create: true
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - database_out_replace.found == 0
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Ensure the Default Out Path is Added
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/aide/aide.conf
+    #     line: database_out=file:/var/lib/aide/aide.db.new
+    #     create: true
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - database_out_replace.found == 0
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
-    - name: Build and Test AIDE Database - Build and Test AIDE Database
-      ansible.builtin.command: /usr/sbin/aideinit -y -f
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_build_database
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Build and Test AIDE Database - Build and Test AIDE Database
+    #   ansible.builtin.command: /usr/sbin/aideinit -y -f
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_build_database
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
 
-    - name: Ensure AIDE is installed
-      package:
-        name: '{{ item }}'
-        state: present
-      with_items:
-      - aide
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - CJIS-5.10.1.3
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-SI-7
-      - NIST-800-53-SI-7(1)
-      - PCI-DSS-Req-11.5
-      - PCI-DSSv4-11.5.2
-      - aide_periodic_cron_checking
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Ensure AIDE is installed
+    #   package:
+    #     name: '{{ item }}'
+    #     state: present
+    #   with_items:
+    #   - aide
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - CJIS-5.10.1.3
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-SI-7
+    #   - NIST-800-53-SI-7(1)
+    #   - PCI-DSS-Req-11.5
+    #   - PCI-DSSv4-11.5.2
+    #   - aide_periodic_cron_checking
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
     - name: Set cron package name - RedHat
       set_fact:
