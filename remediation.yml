@@ -792,6 +792,7 @@
       package:
         name: gnutls-utils
         state: present
+        ignore_errors: true 
       tags:
       - enable_strategy
       - low_complexity
@@ -799,6 +800,7 @@
       - medium_severity
       - no_reboot_needed
       - package_gnutls-utils_installed
+      
 
 
     - name: Ensure nss-tools is installed
