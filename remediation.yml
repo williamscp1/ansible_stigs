@@ -24312,6 +24312,7 @@
           | flatten | unique + log_files_old.results | map(attribute=''stdout_lines'')
           | list | flatten | unique }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24334,6 +24335,7 @@
       loop: '{{ log_files | list | flatten | unique }}'
       failed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24364,6 +24366,7 @@
           regexp: ^.*daemon\.\*.*$
           log_path_name: messages
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-17(1)
       - configure_strategy
@@ -24379,6 +24382,7 @@
         path: '{{ conf_files.0 }}'
         state: touch
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-17(1)
       - configure_strategy
@@ -24399,6 +24403,7 @@
       register: remote_method_values
       loop: '{{ remote_methods|product(conf_files)|list }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-17(1)
       - configure_strategy
@@ -24419,6 +24424,7 @@
       when:
       - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
       - item.found == 0
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-17(1)
       - configure_strategy
