@@ -23760,6 +23760,7 @@
       register: rsyslog_old_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_erros: true
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23781,6 +23782,7 @@
       register: rsyslog_new_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23800,6 +23802,7 @@
         include_config_output: '{{ rsyslog_old_inc.stdout_lines + rsyslog_new_inc.stdout_lines
           }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23825,6 +23828,7 @@
       failed_when: false
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23849,6 +23853,7 @@
       register: log_files_old
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23874,6 +23879,7 @@
       register: log_files_new
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23894,6 +23900,7 @@
           | flatten | unique + log_files_old.results | map(attribute=''stdout_lines'')
           | list | flatten | unique }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23916,6 +23923,7 @@
       loop: '{{ log_files | list | flatten | unique }}'
       failed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23936,6 +23944,7 @@
       ansible.builtin.set_fact:
         rsyslog_etc_config: /etc/rsyslog.conf
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23957,6 +23966,7 @@
       register: rsyslog_old_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23978,6 +23988,7 @@
       register: rsyslog_new_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -23997,6 +24008,7 @@
         include_config_output: '{{ rsyslog_old_inc.stdout_lines + rsyslog_new_inc.stdout_lines
           }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24022,6 +24034,7 @@
       failed_when: false
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24046,6 +24059,7 @@
       register: log_files_old
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24071,6 +24085,7 @@
       register: log_files_new
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24091,6 +24106,7 @@
           | flatten | unique + log_files_old.results | map(attribute=''stdout_lines'')
           | list | flatten | unique }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24113,6 +24129,7 @@
       loop: '{{ log_files | list | flatten | unique }}'
       failed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24133,6 +24150,7 @@
       ansible.builtin.set_fact:
         rsyslog_etc_config: /etc/rsyslog.conf
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24154,6 +24172,7 @@
       register: rsyslog_old_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24175,6 +24194,7 @@
       register: rsyslog_new_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24194,6 +24214,7 @@
         include_config_output: '{{ rsyslog_old_inc.stdout_lines + rsyslog_new_inc.stdout_lines
           }}'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24219,6 +24240,7 @@
       failed_when: false
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
@@ -24243,6 +24265,7 @@
       register: log_files_old
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
