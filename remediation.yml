@@ -27941,6 +27941,7 @@
     - name: Deactivate Wireless Network Interfaces
       command: nmcli radio wifi off
       when: '''NetworkManager'' in ansible_facts.packages'
+      ignore_errors: true
       tags:
       - NIST-800-171-3.1.16
       - NIST-800-53-AC-18(3)
@@ -27963,6 +27964,7 @@
       stat:
         path: /etc/audit/auditd.conf
       register: file_exists
+      ignore_errors: true
       tags:
       - NIST-800-53-AU-12(b)
       - configure_strategy
@@ -27977,6 +27979,7 @@
         path: /etc/audit/auditd.conf
         mode: u-xs,g-xws,o-xwrt
       when: file_exists.stat is defined and file_exists.stat.exists
+      ignore_errors: true
       tags:
       - NIST-800-53-AU-12(b)
       - configure_strategy
@@ -27994,6 +27997,7 @@
       changed_when: false
       failed_when: false
       check_mode: false
+      ignore_errors: true
       tags:
       - NIST-800-53-AU-12(b)
       - configure_strategy
@@ -28008,6 +28012,7 @@
         path: '{{ item }}'
         mode: u-xs,g-xws,o-xwrt
         state: file
+        ignore_errors: true
       with_items:
       - '{{ files_found.stdout_lines }}'
       tags:
@@ -28027,6 +28032,7 @@
       changed_when: false
       failed_when: false
       check_mode: false
+      ignore_errors: true
       tags:
       - NIST-800-53-SI-11(a)
       - NIST-800-53-SI-11(b)
