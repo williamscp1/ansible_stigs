@@ -24291,6 +24291,7 @@
       register: log_files_new
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
