@@ -23753,27 +23753,27 @@
       - no_reboot_needed
       - rsyslog_files_groupownership
 
-    - name: Ensure Log Files Are Owned By Appropriate Group - Get IncludeConfig directive
-      ansible.builtin.shell: |
-        set -o pipefail
-        grep -e '$IncludeConfig' {{ rsyslog_etc_config }} | cut -d ' ' -f 2 || true
-      register: rsyslog_old_inc
-      changed_when: false
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      # ignore_errors: yes ##causes failure due to conflict 
-      tags:
-      - NIST-800-53-AC-6(1)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.5.1
-      - PCI-DSS-Req-10.5.2
-      - PCI-DSSv4-10.3.1
-      - PCI-DSSv4-10.3.2
-      - configure_strategy
-      - low_complexity
-      - medium_disruption
-      - medium_severity
-      - no_reboot_needed
-      - rsyslog_files_groupownership
+    # - name: Ensure Log Files Are Owned By Appropriate Group - Get IncludeConfig directive
+    #   ansible.builtin.shell: |
+    #     set -o pipefail
+    #     grep -e '$IncludeConfig' {{ rsyslog_etc_config }} | cut -d ' ' -f 2 || true
+    #   register: rsyslog_old_inc
+    #   changed_when: false
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   # ignore_errors: yes ##causes failure due to conflict 
+    #   tags:
+    #   - NIST-800-53-AC-6(1)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.5.1
+    #   - PCI-DSS-Req-10.5.2
+    #   - PCI-DSSv4-10.3.1
+    #   - PCI-DSSv4-10.3.2
+    #   - configure_strategy
+    #   - low_complexity
+    #   - medium_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - rsyslog_files_groupownership
 
     - name: Ensure Log Files Are Owned By Appropriate Group - Get include files directives
       ansible.builtin.shell: |
