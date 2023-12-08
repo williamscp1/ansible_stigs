@@ -23760,7 +23760,7 @@
       register: rsyslog_old_inc
       changed_when: false
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      ignore_erros: true
+      # ignore_errors: yes
       tags:
       - NIST-800-53-AC-6(1)
       - NIST-800-53-CM-6(a)
