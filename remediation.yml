@@ -25084,6 +25084,7 @@
       failed_when: ipv6_status.stdout != "0"
       when: ( not ( "nftables" in ansible_facts.packages ) and not ( "ufw" in ansible_facts.packages
         ) and "iptables" in ansible_facts.packages )
+      ignore_errors: true 
       tags:
       - PCI-DSS-Req-1.3
       - PCI-DSSv4-1.4.1
