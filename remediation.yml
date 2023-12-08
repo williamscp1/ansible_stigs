@@ -25053,6 +25053,7 @@
         when:
         - '"iptables" in ansible_facts.packages'
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      ignore_errors: true 
       tags:
       - NIST-800-53-AC-4
       - NIST-800-53-CA-3(5)
