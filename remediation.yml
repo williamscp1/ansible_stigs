@@ -27918,6 +27918,7 @@
       ansible.builtin.package:
         name: '{{ item }}'
         state: present
+        ignore_errors: true 
       with_items:
       - NetworkManager
       tags:
