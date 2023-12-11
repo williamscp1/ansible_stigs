@@ -28045,7 +28045,7 @@
       - no_reboot_needed
       - permissions_local_var_log
 
-    - name: Set permissions for /var/log/ file(s)
+    - name: Set permissions for // file(s)
       file:
         path: '{{ item }}'
         mode: u-xs,g-xws,o-xwrt
@@ -33496,8 +33496,10 @@
         check_mode: true
         changed_when: false
         register: dupes
+        ignore_errors: true
 
       - name: Deduplicate values from /etc/systemd/coredump.conf
+        ignore_errors: true
         lineinfile:
           path: /etc/systemd/coredump.conf
           create: false
@@ -33506,6 +33508,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/systemd/coredump.conf
+        ignore_errors: true
         lineinfile:
           path: /etc/systemd/coredump.conf
           create: false
@@ -33547,6 +33550,7 @@
       block:
 
       - name: Check for duplicate values
+        ignore_errors: true
         lineinfile:
           path: /etc/systemd/coredump.conf
           create: false
@@ -33557,6 +33561,7 @@
         register: dupes
 
       - name: Deduplicate values from /etc/systemd/coredump.conf
+        ignore_errors: true
         lineinfile:
           path: /etc/systemd/coredump.conf
           create: false
@@ -33565,6 +33570,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/systemd/coredump.conf
+        ignore_errors: true
         lineinfile:
           path: /etc/systemd/coredump.conf
           create: false
