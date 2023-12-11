@@ -29371,6 +29371,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/bin/ recursively
+      ignore_errors: true
       file:
         path: /usr/bin/
         state: directory
@@ -29385,6 +29386,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/sbin/ recursively
+      ignore_errors: true
       file:
         path: /usr/sbin/
         state: directory
@@ -29399,6 +29401,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/local/bin/ recursively
+      ignore_errors: true
       file:
         path: /usr/local/bin/
         state: directory
@@ -29413,6 +29416,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/local/sbin/ recursively
+      ignore_errors: true
       file:
         path: /usr/local/sbin/
         state: directory
@@ -29428,6 +29432,7 @@
 
 
     - name: Ensure owner on directory /lib/ recursively
+      ignore_errors: true
       file:
         path: /lib/
         state: directory
@@ -29444,6 +29449,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /lib64/ recursively
+      ignore_errors: true
       file:
         path: /lib64/
         state: directory
@@ -29460,6 +29466,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/lib/ recursively
+      ignore_errors: true
       file:
         path: /usr/lib/
         state: directory
@@ -29476,6 +29483,7 @@
       - no_reboot_needed
 
     - name: Ensure owner on directory /usr/lib64/ recursively
+      ignore_errors: true
       file:
         path: /usr/lib64/
         state: directory
@@ -29493,6 +29501,7 @@
 
 
     - name: Find /bin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /bin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29507,6 +29516,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /bin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29522,6 +29532,7 @@
       - no_reboot_needed
 
     - name: Find /sbin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /sbin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29536,6 +29547,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /sbin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29551,6 +29563,7 @@
       - no_reboot_needed
 
     - name: Find /usr/bin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/bin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29565,6 +29578,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/bin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29580,6 +29594,7 @@
       - no_reboot_needed
 
     - name: Find /usr/sbin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/sbin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29594,6 +29609,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/sbin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29609,6 +29625,7 @@
       - no_reboot_needed
 
     - name: Find /usr/local/bin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/local/bin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29623,6 +29640,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/local/bin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29638,6 +29656,7 @@
       - no_reboot_needed
 
     - name: Find /usr/local/sbin/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/local/sbin/  -perm /u+s,g+ws,o+wt  -type d '
       register: files_found
       changed_when: false
@@ -29652,6 +29671,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/local/sbin/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: u-s,g-ws,o-wt
@@ -29668,6 +29688,7 @@
 
 
     - name: Find /lib/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /lib/  -perm /g+w,o+w  -type d '
       register: files_found
       changed_when: false
@@ -29685,6 +29706,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /lib/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: g-w,o-w
@@ -29703,6 +29725,7 @@
       - no_reboot_needed
 
     - name: Find /lib64/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /lib64/  -perm /g+w,o+w  -type d '
       register: files_found
       changed_when: false
@@ -29720,6 +29743,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /lib64/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: g-w,o-w
@@ -29738,6 +29762,7 @@
       - no_reboot_needed
 
     - name: Find /usr/lib/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/lib/  -perm /g+w,o+w  -type d '
       register: files_found
       changed_when: false
@@ -29755,6 +29780,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/lib/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: g-w,o-w
@@ -29773,6 +29799,7 @@
       - no_reboot_needed
 
     - name: Find /usr/lib64/ file(s) recursively
+      ignore_errors: true
       command: 'find -H /usr/lib64/  -perm /g+w,o+w  -type d '
       register: files_found
       changed_when: false
@@ -29790,6 +29817,7 @@
       - no_reboot_needed
 
     - name: Set permissions for /usr/lib64/ file(s)
+      ignore_errors: true
       file:
         path: '{{ item }}'
         mode: g-w,o-w
@@ -29809,6 +29837,7 @@
 
 
     - name: Test for existence /sbin/auditctl
+      ignore_errors: true
       stat:
         path: /sbin/auditctl
       register: file_exists
@@ -29821,6 +29850,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner 0 on /sbin/auditctl
+      ignore_errors: true
       file:
         path: /sbin/auditctl
         group: '0'
@@ -29834,6 +29864,7 @@
       - no_reboot_needed
 
     - name: Test for existence /sbin/aureport
+      ignore_errors: true
       stat:
         path: /sbin/aureport
       register: file_exists
@@ -29846,6 +29877,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner 0 on /sbin/aureport
+      ignore_errors: true
       file:
         path: /sbin/aureport
         group: '0'
@@ -29859,6 +29891,7 @@
       - no_reboot_needed
 
     - name: Test for existence /sbin/ausearch
+      ignore_errors: true
       stat:
         path: /sbin/ausearch
       register: file_exists
@@ -29871,6 +29904,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner 0 on /sbin/ausearch
+      ignore_errors: true
       file:
         path: /sbin/ausearch
         group: '0'
@@ -29884,6 +29918,7 @@
       - no_reboot_needed
 
     - name: Test for existence /sbin/autrace
+      ignore_errors: true
       stat:
         path: /sbin/autrace
       register: file_exists
@@ -29896,6 +29931,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner 0 on /sbin/autrace
+      ignore_errors: true
       file:
         path: /sbin/autrace
         group: '0'
@@ -29909,6 +29945,7 @@
       - no_reboot_needed
 
     - name: Test for existence /sbin/auditd
+      ignore_errors: true
       stat:
         path: /sbin/auditd
       register: file_exists
