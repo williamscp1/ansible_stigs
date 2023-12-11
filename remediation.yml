@@ -29266,6 +29266,7 @@
     #   - no_reboot_needed
 
     - name: Ensure group owner on /sbin/ recursively
+      ignore_errors: true 
       file:
         path: /sbin/
         state: directory
@@ -29280,6 +29281,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner on /usr/bin/ recursively
+      ignore_errors: true
       file:
         path: /usr/bin/
         state: directory
@@ -29294,6 +29296,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner on /usr/sbin/ recursively
+      ignore_errors: true
       file:
         path: /usr/sbin/
         state: directory
@@ -29308,6 +29311,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner on /usr/local/bin/ recursively
+      ignore_errors: true
       file:
         path: /usr/local/bin/
         state: directory
@@ -29322,6 +29326,7 @@
       - no_reboot_needed
 
     - name: Ensure group owner on /usr/local/sbin/ recursively
+      ignore_errors: true
       file:
         path: /usr/local/sbin/
         state: directory
@@ -29337,6 +29342,7 @@
 
 
     - name: Ensure owner on directory /bin/ recursively
+      ignore_errors: true
       file:
         path: /bin/
         state: directory
