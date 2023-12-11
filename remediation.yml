@@ -29251,19 +29251,19 @@
       - no_reboot_needed
 
 
-    - name: Ensure group owner on /bin/ recursively
-      file:
-        path: /bin/
-        state: directory
-        recurse: true
-        group: '0'
-      tags:
-      - configure_strategy
-      - dir_groupownership_binary_dirs
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
+    # - name: Ensure group owner on /bin/ recursively
+    #   file:
+    #     path: /bin/
+    #     state: directory
+    #     recurse: true
+    #     group: '0'
+    #   tags:
+    #   - configure_strategy
+    #   - dir_groupownership_binary_dirs
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
 
     - name: Ensure group owner on /sbin/ recursively
       file:
