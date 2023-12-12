@@ -111,216 +111,216 @@
       - no_reboot_needed
       - package_prelink_removed
 
-    - name: Ensure prelink is Removed
-      ansible.builtin.package:
-        name: prelink
-        state: absent
+    # - name: Ensure prelink is Removed
+    #   ansible.builtin.package:
+    #     name: prelink
+    #     state: absent
+    #   tags:
+    #   - disable_strategy
+    #   - low_disruption
+    #   - medium_complexity
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_prelink_removed
+
+
+    - name: Ensure aide is installed
+      package:
+        name: aide
+        state: present
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
       tags:
-      - disable_strategy
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - enable_strategy
+      - low_complexity
       - low_disruption
-      - medium_complexity
       - medium_severity
       - no_reboot_needed
-      - package_prelink_removed
+      - package_aide_installed
 
 
-    # - name: Ensure aide is installed
-    #   package:
-    #     name: aide
-    #     state: present
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - enable_strategy
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - package_aide_installed
+    - name: Build and Test AIDE Database - Ensure AIDE Is Installed
+      ansible.builtin.apt:
+        name: aide
+        state: present
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Check if DB Path in /etc/aide/aide.conf Is
+        Already Set
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        regexp: ^#?(\s*)(database=)(.*)$
+        state: absent
+      check_mode: true
+      changed_when: false
+      register: database_replace
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Check if DB Out Path in /etc/aide/aide.conf
+        Is Already Set
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        regexp: ^#?(\s*)(database_out=)(.*)$
+        state: absent
+      check_mode: true
+      changed_when: false
+      register: database_out_replace
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Fix DB Path in Config File if Necessary
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        regexp: ^#?(\s*)(database)(\s*)=(\s*)(.*)$
+        line: \2\3=\4file:/var/lib/aide/aide.db
+        backrefs: true
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - database_replace.found > 0
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Fix DB Out Path in Config File if Necessary
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        regexp: ^#?(\s*)(database_out)(\s*)=(\s*)(.*)$
+        line: \2\3=\4file:/var/lib/aide/aide.db.new
+        backrefs: true
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - database_out_replace.found > 0
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Ensure the Default DB Path is Added
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        line: database=file:/var/lib/aide/aide.db
+        create: true
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - database_replace.found == 0
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Ensure the Default Out Path is Added
+      ansible.builtin.lineinfile:
+        path: /etc/aide/aide.conf
+        line: database_out=file:/var/lib/aide/aide.db.new
+        create: true
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - database_out_replace.found == 0
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Build and Test AIDE Database - Build and Test AIDE Database
+      ansible.builtin.command: /usr/sbin/aideinit -y -f
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_build_database
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
 
 
-    # - name: Build and Test AIDE Database - Ensure AIDE Is Installed
-    #   ansible.builtin.apt:
-    #     name: aide
-    #     state: present
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Check if DB Path in /etc/aide/aide.conf Is
-    #     Already Set
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     regexp: ^#?(\s*)(database=)(.*)$
-    #     state: absent
-    #   check_mode: true
-    #   changed_when: false
-    #   register: database_replace
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Check if DB Out Path in /etc/aide/aide.conf
-    #     Is Already Set
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     regexp: ^#?(\s*)(database_out=)(.*)$
-    #     state: absent
-    #   check_mode: true
-    #   changed_when: false
-    #   register: database_out_replace
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Fix DB Path in Config File if Necessary
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     regexp: ^#?(\s*)(database)(\s*)=(\s*)(.*)$
-    #     line: \2\3=\4file:/var/lib/aide/aide.db
-    #     backrefs: true
-    #   when:
-    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   - database_replace.found > 0
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Fix DB Out Path in Config File if Necessary
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     regexp: ^#?(\s*)(database_out)(\s*)=(\s*)(.*)$
-    #     line: \2\3=\4file:/var/lib/aide/aide.db.new
-    #     backrefs: true
-    #   when:
-    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   - database_out_replace.found > 0
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Ensure the Default DB Path is Added
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     line: database=file:/var/lib/aide/aide.db
-    #     create: true
-    #   when:
-    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   - database_replace.found == 0
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Ensure the Default Out Path is Added
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/aide/aide.conf
-    #     line: database_out=file:/var/lib/aide/aide.db.new
-    #     create: true
-    #   when:
-    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   - database_out_replace.found == 0
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-    # - name: Build and Test AIDE Database - Build and Test AIDE Database
-    #   ansible.builtin.command: /usr/sbin/aideinit -y -f
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_build_database
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
-
-
-    # - name: Ensure AIDE is installed
-    #   package:
-    #     name: '{{ item }}'
-    #     state: present
-    #   with_items:
-    #   - aide
-    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-    #   tags:
-    #   - CJIS-5.10.1.3
-    #   - NIST-800-53-CM-6(a)
-    #   - NIST-800-53-SI-7
-    #   - NIST-800-53-SI-7(1)
-    #   - PCI-DSS-Req-11.5
-    #   - PCI-DSSv4-11.5.2
-    #   - aide_periodic_cron_checking
-    #   - low_complexity
-    #   - low_disruption
-    #   - medium_severity
-    #   - no_reboot_needed
-    #   - restrict_strategy
+    - name: Ensure AIDE is installed
+      package:
+        name: '{{ item }}'
+        state: present
+      with_items:
+      - aide
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CJIS-5.10.1.3
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-SI-7
+      - NIST-800-53-SI-7(1)
+      - PCI-DSS-Req-11.5
+      - PCI-DSSv4-11.5.2
+      - aide_periodic_cron_checking
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
 
     - name: Set cron package name - RedHat
       set_fact:
@@ -25191,44 +25191,44 @@
       - set_loopback_traffic
 
 
-    - name: Disable IPv6 Networking kernel module
-      lineinfile:
-        create: true
-        dest: /etc/modprobe.d/ipv6.conf
-        regexp: ^options\s+ipv6\s+disable=\d
-        line: options ipv6 disable=1
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - disable_strategy
-      - kernel_module_ipv6_option_disabled
-      - low_complexity
-      - medium_disruption
-      - medium_severity
-      - reboot_required
+    # - name: Disable IPv6 Networking kernel module
+    #   lineinfile:
+    #     create: true
+    #     dest: /etc/modprobe.d/ipv6.conf
+    #     regexp: ^options\s+ipv6\s+disable=\d
+    #     line: options ipv6 disable=1
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - disable_strategy
+    #   - kernel_module_ipv6_option_disabled
+    #   - low_complexity
+    #   - medium_disruption
+    #   - medium_severity
+    #   - reboot_required
 
-    - name: Ensure disable_ipv6 (all and default) is set to 1
-      sysctl:
-        name: '{{ item }}'
-        value: '1'
-        state: present
-        reload: true
-      with_items:
-      - net.ipv6.conf.all.disable_ipv6
-      - net.ipv6.conf.default.disable_ipv6
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - disable_strategy
-      - kernel_module_ipv6_option_disabled
-      - low_complexity
-      - medium_disruption
-      - medium_severity
-      - reboot_required
+    # - name: Ensure disable_ipv6 (all and default) is set to 1
+    #   sysctl:
+    #     name: '{{ item }}'
+    #     value: '1'
+    #     state: present
+    #     reload: true
+    #   with_items:
+    #   - net.ipv6.conf.all.disable_ipv6
+    #   - net.ipv6.conf.default.disable_ipv6
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - disable_strategy
+    #   - kernel_module_ipv6_option_disabled
+    #   - low_complexity
+    #   - medium_disruption
+    #   - medium_severity
+    #   - reboot_required
 
 
     - name: List /etc/sysctl.d/*.conf files
@@ -27339,6 +27339,7 @@
 
 
     - name: Ensure nftables is installed
+      ignore_errors: true 
       package:
         name: nftables
         state: present
@@ -27352,17 +27353,17 @@
       - package_nftables_installed
 
 
-    - name: Ensure nftables is removed
-      package:
-        name: nftables
-        state: absent
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_nftables_removed
+    # - name: Ensure nftables is removed
+    #   package:
+    #     name: nftables
+    #     state: absent
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_nftables_removed
 
 
     - name: Gather the package facts
@@ -27681,18 +27682,18 @@
       - package_ufw_installed
 
 
-    - name: Ensure ufw is removed
-      package:
-        name: ufw
-        state: absent
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_ufw_removed
+    # - name: Ensure ufw is removed
+    #   package:
+    #     name: ufw
+    #     state: absent
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_ufw_removed
 
 
     - name: Gather the package facts
@@ -34856,17 +34857,17 @@
       - package_nis_removed
 
 
-    - name: Ensure ntpdate is removed
-      package:
-        name: ntpdate
-        state: absent
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - low_severity
-      - no_reboot_needed
-      - package_ntpdate_removed
+    # - name: Ensure ntpdate is removed
+    #   package:
+    #     name: ntpdate
+    #     state: absent
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - low_severity
+    #   - no_reboot_needed
+    #   - package_ntpdate_removed
 
 
     - name: Ensure telnetd-ssl is removed
@@ -34918,21 +34919,21 @@
       - package_dhcp_removed
 
 
-    - name: Ensure bind9 is removed
-      package:
-        name: bind9
-        state: absent
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - low_severity
-      - no_reboot_needed
-      - package_bind_removed
+    # - name: Ensure bind9 is removed
+    #   package:
+    #     name: bind9
+    #     state: absent
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - low_severity
+    #   - no_reboot_needed
+    #   - package_bind_removed
 
 
     - name: Ensure vsftpd is removed
@@ -34956,37 +34957,37 @@
       - package_vsftpd_removed
 
 
-    - name: Ensure apache2 is removed
-      package:
-        name: apache2
-        state: absent
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_httpd_removed
-      - unknown_severity
+    # - name: Ensure apache2 is removed
+    #   package:
+    #     name: apache2
+    #     state: absent
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_httpd_removed
+    #   - unknown_severity
 
 
-    - name: Ensure nginx is removed
-      package:
-        name: nginx
-        state: absent
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_nginx_removed
-      - unknown_severity
+    # - name: Ensure nginx is removed
+    #   package:
+    #     name: nginx
+    #     state: absent
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_nginx_removed
+    #   - unknown_severity
 
 
     - name: Ensure cyrus-imapd is removed
@@ -35719,81 +35720,81 @@
       - restrict_strategy
 
 
-    - name: Ensure rsync is removed
-      package:
-        name: rsync
-        state: absent
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_rsync_removed
+    # - name: Ensure rsync is removed
+    #   package:
+    #     name: rsync
+    #     state: absent
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_rsync_removed
 
 
-    - name: Ensure xinetd is removed
-      package:
-        name: xinetd
-        state: absent
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - low_severity
-      - no_reboot_needed
-      - package_xinetd_removed
+    # - name: Ensure xinetd is removed
+    #   package:
+    #     name: xinetd
+    #     state: absent
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - low_severity
+    #   - no_reboot_needed
+    #   - package_xinetd_removed
 
 
-    - name: Ensure rsh-server is removed
-      package:
-        name: rsh-server
-        state: absent
-      tags:
-      - NIST-800-53-CM-6(a)
-      - NIST-800-53-CM-7(a)
-      - NIST-800-53-CM-7(b)
-      - NIST-800-53-IA-5(1)(c)
-      - disable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_rsh-server_removed
+    # - name: Ensure rsh-server is removed
+    #   package:
+    #     name: rsh-server
+    #     state: absent
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - NIST-800-53-CM-7(a)
+    #   - NIST-800-53-CM-7(b)
+    #   - NIST-800-53-IA-5(1)(c)
+    #   - disable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_rsh-server_removed
 
 
-    - name: Ensure rsh-client is removed
-      package:
-        name: rsh-client
-        state: absent
-      tags:
-      - NIST-800-171-3.1.13
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_rsh_removed
-      - unknown_severity
+    # - name: Ensure rsh-client is removed
+    #   package:
+    #     name: rsh-client
+    #     state: absent
+    #   tags:
+    #   - NIST-800-171-3.1.13
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_rsh_removed
+    #   - unknown_severity
 
 
-    - name: Ensure talk is removed
-      package:
-        name: talk
-        state: absent
-      tags:
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_talk_removed
+    # - name: Ensure talk is removed
+    #   package:
+    #     name: talk
+    #     state: absent
+    #   tags:
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_talk_removed
 
 
     - name: Ensure telnet is removed
@@ -35925,18 +35926,18 @@
       - unknown_severity
 
 
-    - name: Ensure snmp is removed
-      package:
-        name: snmp
-        state: absent
-      tags:
-      - PCI-DSSv4-2.2.4
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_net-snmp_removed
-      - unknown_severity
+    # - name: Ensure snmp is removed
+    #   package:
+    #     name: snmp
+    #     state: absent
+    #   tags:
+    #   - PCI-DSSv4-2.2.4
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_net-snmp_removed
+    #   - unknown_severity
 
 
     - name: Ensure openssh-server is installed
@@ -35954,18 +35955,18 @@
       - package_openssh-server_installed
 
 
-    - name: Ensure openssh-server is removed
-      package:
-        name: openssh-server
-        state: absent
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_openssh-server_removed
+    # - name: Ensure openssh-server is removed
+    #   package:
+    #     name: openssh-server
+    #     state: absent
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_openssh-server_removed
 
 
     - name: Block Disable service sshd
