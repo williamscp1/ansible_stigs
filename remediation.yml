@@ -24690,7 +24690,7 @@
       - no_reboot_needed
 
 
-    - name: Ensure syslog-ng is installed
+    - name: -ng is installed
       package:
         name: syslog-ng
         state: present
@@ -24952,6 +24952,7 @@
       - package_iptables-persistent_installed
 
     - name: Ensure iptables-persistent is installed
+      ignore_errors: true
       package:
         name: iptables-persistent
         state: present
@@ -24966,6 +24967,7 @@
 
 
     - name: Ensure iptables is installed
+      ignore_errors: true
       package:
         name: iptables
         state: present
@@ -24994,18 +24996,18 @@
       - no_reboot_needed
       - package_iptables-persistent_removed
 
-    - name: Ensure iptables-persistent is removed
-      package:
-        name: iptables-persistent
-        state: absent
-      when: '"iptables" in ansible_facts.packages'
-      tags:
-      - disable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_iptables-persistent_removed
+    # - name: Ensure iptables-persistent is removed
+    #   package:
+    #     name: iptables-persistent
+    #     state: absent
+    #   when: '"iptables" in ansible_facts.packages'
+    #   tags:
+    #   - disable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_iptables-persistent_removed
 
 
     - name: Enable service ip6tables
