@@ -23487,19 +23487,19 @@
       - no_reboot_needed
 
 
-    - name: Ensure rsyslog is installed
-      package:
-        name: rsyslog
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_rsyslog_installed
+    # - name: Ensure rsyslog is installed
+    #   package:
+    #     name: rsyslog
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_rsyslog_installed
 
 
     - name: Enable service rsyslog
