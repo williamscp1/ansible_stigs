@@ -27338,19 +27338,19 @@
       - sysctl_net_ipv4_ip_forward
 
 
-    - name: Ensure nftables is installed
-      ignore_errors: true 
-      package:
-        name: nftables
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_nftables_installed
+    # - name: Ensure nftables is installed
+    #   ignore_errors: true 
+    #   package:
+    #     name: nftables
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_nftables_installed
 
 
     # - name: Ensure nftables is removed
