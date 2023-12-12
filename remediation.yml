@@ -27672,6 +27672,8 @@
       package:
         name: ufw
         state: present
+        async: 15
+        poll: 15
       when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
       tags:
       - enable_strategy
