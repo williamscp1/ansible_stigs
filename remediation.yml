@@ -24951,19 +24951,19 @@
       - no_reboot_needed
       - package_iptables-persistent_installed
 
-    - name: Ensure iptables-persistent is installed
-      ignore_errors: true
-      package:
-        name: iptables-persistent
-        state: present
-      when: '"iptables" in ansible_facts.packages'
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_iptables-persistent_installed
+    # - name: Ensure iptables-persistent is installed
+    #   ignore_errors: true
+    #   package:
+    #     name: iptables-persistent
+    #     state: present
+    #   when: '"iptables" in ansible_facts.packages'
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_iptables-persistent_installed
 
 
     - name: Ensure iptables is installed
