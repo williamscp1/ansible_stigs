@@ -35245,244 +35245,244 @@
       - package_rpcbind_removed
 
 
-    - name: Ensure chrony is installed
-      package:
-        name: chrony
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_chrony_installed
+    # - name: Ensure chrony is installed
+    #   package:
+    #     name: chrony
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_chrony_installed
 
 
-    - name: Ensure ntp is installed
-      package:
-        name: ntp
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_ntp_installed
+    # - name: Ensure ntp is installed
+    #   package:
+    #     name: ntp
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_ntp_installed
 
 
-    - name: Ensure systemd-timesyncd is installed
-      package:
-        name: systemd-timesyncd
-        state: present
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - package_timesyncd_installed
+    # - name: Ensure systemd-timesyncd is installed
+    #   package:
+    #     name: systemd-timesyncd
+    #     state: present
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - package_timesyncd_installed
 
 
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - service_chronyd_enabled
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - service_chronyd_enabled
 
-    - name: Enable service chrony
-      block:
+    # - name: Enable service chrony
+    #   block:
 
-      - name: Gather the package facts
-        package_facts:
-          manager: auto
+    #   - name: Gather the package facts
+    #     package_facts:
+    #       manager: auto
 
-      - name: Enable service chrony
-        systemd:
-          name: chrony
-          enabled: 'yes'
-          state: started
-          masked: 'no'
-        when:
-        - '"chrony" in ansible_facts.packages'
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - '"chrony" in ansible_facts.packages'
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - service_chronyd_enabled
-
-
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - service_ntp_enabled
-
-    - name: Enable service ntp
-      block:
-
-      - name: Gather the package facts
-        package_facts:
-          manager: auto
-
-      - name: Enable service ntp
-        systemd:
-          name: ntp
-          enabled: 'yes'
-          state: started
-          masked: 'no'
-        when:
-        - '"ntp" in ansible_facts.packages'
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - '"ntp" in ansible_facts.packages'
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - service_ntp_enabled
+    #   - name: Enable service chrony
+    #     systemd:
+    #       name: chrony
+    #       enabled: 'yes'
+    #       state: started
+    #       masked: 'no'
+    #     when:
+    #     - '"chrony" in ansible_facts.packages'
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - '"chrony" in ansible_facts.packages'
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - service_chronyd_enabled
 
 
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - service_ntpd_enabled
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - service_ntp_enabled
 
-    - name: Enable service ntpd
-      block:
+    # - name: Enable service ntp
+    #   block:
 
-      - name: Gather the package facts
-        package_facts:
-          manager: auto
+    #   - name: Gather the package facts
+    #     package_facts:
+    #       manager: auto
 
-      - name: Enable service ntpd
-        systemd:
-          name: ntpd
-          enabled: 'yes'
-          state: started
-          masked: 'no'
-        when:
-        - '"ntp" in ansible_facts.packages'
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - '"ntp" in ansible_facts.packages'
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - service_ntpd_enabled
-
-
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - service_timesyncd_enabled
-
-    - name: Enable service systemd-timesyncd
-      block:
-
-      - name: Gather the package facts
-        package_facts:
-          manager: auto
-
-      - name: Enable service systemd-timesyncd
-        systemd:
-          name: systemd-timesyncd
-          enabled: 'yes'
-          state: started
-          masked: 'no'
-        when:
-        - '"systemd" in ansible_facts.packages'
-      when:
-      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      - ( not ( "chrony" in ansible_facts.packages ) and not ( "ntp" in ansible_facts.packages
-        ) )
-      tags:
-      - NIST-800-53-AU-8(1)(a)
-      - NIST-800-53-CM-6(a)
-      - PCI-DSS-Req-10.4
-      - PCI-DSSv4-10.6.1
-      - enable_strategy
-      - high_severity
-      - low_complexity
-      - low_disruption
-      - no_reboot_needed
-      - service_timesyncd_enabled
+    #   - name: Enable service ntp
+    #     systemd:
+    #       name: ntp
+    #       enabled: 'yes'
+    #       state: started
+    #       masked: 'no'
+    #     when:
+    #     - '"ntp" in ansible_facts.packages'
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - '"ntp" in ansible_facts.packages'
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - service_ntp_enabled
 
 
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-      tags:
-      - NIST-800-53-AU-12(1)
-      - NIST-800-53-AU-8(1)(b)
-      - NIST-800-53-CM-6(a)
-      - chronyd_or_ntpd_set_maxpoll
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - restrict_strategy
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - service_ntpd_enabled
+
+    # - name: Enable service ntpd
+    #   block:
+
+    #   - name: Gather the package facts
+    #     package_facts:
+    #       manager: auto
+
+    #   - name: Enable service ntpd
+    #     systemd:
+    #       name: ntpd
+    #       enabled: 'yes'
+    #       state: started
+    #       masked: 'no'
+    #     when:
+    #     - '"ntp" in ansible_facts.packages'
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - '"ntp" in ansible_facts.packages'
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - service_ntpd_enabled
+
+
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - service_timesyncd_enabled
+
+    # - name: Enable service systemd-timesyncd
+    #   block:
+
+    #   - name: Gather the package facts
+    #     package_facts:
+    #       manager: auto
+
+    #   - name: Enable service systemd-timesyncd
+    #     systemd:
+    #       name: systemd-timesyncd
+    #       enabled: 'yes'
+    #       state: started
+    #       masked: 'no'
+    #     when:
+    #     - '"systemd" in ansible_facts.packages'
+    #   when:
+    #   - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   - ( not ( "chrony" in ansible_facts.packages ) and not ( "ntp" in ansible_facts.packages
+    #     ) )
+    #   tags:
+    #   - NIST-800-53-AU-8(1)(a)
+    #   - NIST-800-53-CM-6(a)
+    #   - PCI-DSS-Req-10.4
+    #   - PCI-DSSv4-10.6.1
+    #   - enable_strategy
+    #   - high_severity
+    #   - low_complexity
+    #   - low_disruption
+    #   - no_reboot_needed
+    #   - service_timesyncd_enabled
+
+
+    # - name: Gather the package facts
+    #   package_facts:
+    #     manager: auto
+    #   tags:
+    #   - NIST-800-53-AU-12(1)
+    #   - NIST-800-53-AU-8(1)(b)
+    #   - NIST-800-53-CM-6(a)
+    #   - chronyd_or_ntpd_set_maxpoll
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - restrict_strategy
 
 
 
