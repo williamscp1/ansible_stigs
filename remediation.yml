@@ -27668,20 +27668,20 @@
       - set_nftables_table
 
 
-    - name: Ensure ufw is installed
-      package:
-        name: ufw
-        state: present
-        async: 15
-        poll: 15
-      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
-      tags:
-      - enable_strategy
-      - low_complexity
-      - low_disruption
-      - medium_severity
-      - no_reboot_needed
-      - package_ufw_installed
+    # - name: Ensure ufw is installed
+    #   package:
+    #     name: ufw
+    #     state: present
+    #     async: 15
+    #     poll: 15
+    #   when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    #   tags:
+    #   - enable_strategy
+    #   - low_complexity
+    #   - low_disruption
+    #   - medium_severity
+    #   - no_reboot_needed
+    #   - package_ufw_installed
 
 
     # - name: Ensure ufw is removed
