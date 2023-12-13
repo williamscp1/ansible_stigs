@@ -84,7 +84,7 @@
     var_sshd_priv_separation: !!str sandbox
     sshd_strong_kex: !!str ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
     sshd_strong_macs: !!str hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
-    {ignore_errors: true}
+    ignore_errors: true
   tasks:
     - name: Check If Prelinked Is Installed
       ansible.builtin.stat:
@@ -36994,6 +36994,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37042,6 +37043,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37082,6 +37084,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37123,6 +37126,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37163,6 +37167,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37207,6 +37212,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37255,6 +37261,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37301,6 +37308,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37345,6 +37353,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37392,6 +37401,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37435,6 +37445,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37475,6 +37486,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37517,6 +37529,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37565,6 +37578,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37609,6 +37623,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37670,6 +37685,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37717,6 +37733,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
@@ -37762,6 +37779,7 @@
         when: dupes.found is defined and dupes.found > 1
 
       - name: Insert correct line to /etc/ssh/sshd_config
+        ignore_errors: true
         lineinfile:
           path: /etc/ssh/sshd_config
           create: true
